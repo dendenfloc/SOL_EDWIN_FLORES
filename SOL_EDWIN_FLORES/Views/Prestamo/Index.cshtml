@@ -1,0 +1,165 @@
+﻿@model IEnumerable<SOL_EDWIN_FLORES.Clases.reportes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <a onclick="GeneraPrestamo()" class="btn btn-outline-info">Generar Préstamo</a>
+    </div>
+</div>
+
+<div class="table-responsive">
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id_prestamo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.id_libro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre_libro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fecha_prestamo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dni_usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre_usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido_usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipo_usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipo_lectura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fecha_devolucion)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_prestamo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_libro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre_libro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fecha_prestamo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dni_usuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre_usuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellido_usuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipo_usuario_view)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tipo_lectura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fecha_devolucion)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+
+
+
+<div class="modal" tabindex="-1" id="CreateModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title">Generar Prestamo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="teeee"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        function GeneraPrestamo() {
+            $.get('@Url.Action("CreatePrestamo", "Prestamo")', {}
+                , function (response) {
+                    $('#CreateModal .teeee').html(response);
+                    $('#CreateModal').modal('show');
+            });
+        }
+
+
+        function ValidarInformacion() {
+            $(".errorForm").remove();
+            var valid = true;
+            $("#formCreate :input[required]").each(function () {
+                if ($(this).val() == 0 || $(this).val() == "") {
+                    valid = false;
+                    $(this).focus();
+                    $(this).after('<span class="errorForm text-danger">Completa este campo</span>');
+                    return false;
+                }
+            });
+            if (valid) {
+                RegistrarInformacion();
+            }
+        }
+        function RegistrarInformacion() {
+            var modelo = new Object();
+            $("#formCreate input, select, textarea").each(function () {
+                modelo[this.name] = this.value;
+            });
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create", "Home")',
+                data: modelo,
+                success: function (returnedData) {
+                    if (returnedData.error) {
+                        alert(returnedData.message);
+                    } else {
+                        window.location.reload()
+                    }
+                },
+                error: function (ex) {
+                    alert('Prestamo/Create' + ex);
+                }
+             });
+        }
+    </script>
+}
