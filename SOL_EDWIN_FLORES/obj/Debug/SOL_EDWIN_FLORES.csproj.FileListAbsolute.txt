@@ -1,5 +1,3 @@
-C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\obj\Debug\SOL_EDWIN_FLORES.csproj.AssemblyReference.cache
-C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\obj\Debug\SOL_EDWIN_FLORES.csproj.CoreCompileInputs.cache
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\bin\SOL_EDWIN_FLORES.dll.config
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\bin\SOL_EDWIN_FLORES.dll
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\bin\SOL_EDWIN_FLORES.pdb
@@ -87,6 +85,8 @@ C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\bin\es
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\bin\es\System.Web.WebPages.resources.dll
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\obj\Debug\SOL_EDWIN_FLORES.csproj.AssemblyReference.cache
+C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\obj\Debug\SOL_EDWIN_FLORES.csproj.CoreCompileInputs.cache
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\obj\Debug\SOL_EDWIN_FLORES.csproj.CopyComplete
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\obj\Debug\SOL_EDWIN_FLORES.dll
 C:\Users\Denis\Documents\Proyectos .NET\SOL_EDWIN_FLORES\SOL_EDWIN_FLORES\obj\Debug\SOL_EDWIN_FLORES.pdb

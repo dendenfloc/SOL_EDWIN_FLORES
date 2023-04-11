@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace SOL_EDWIN_FLORES.Models
 {
-    public class libros
+    public class LIBROS
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string categoria { get; set; }
-        public string pais { get; set; }
-        public string autor { get; set; }
-        public DateTime fecha_publicacion { get; set; }
-        public string editorial { get; set; }
+        [Key]
+        public int ID { get; set; }
+        public string NOMBRE { get; set; }
+        public string CATEGORIA { get; set; }
+        public string AUTOR { get; set; }
+        public string PAIS { get; set; }
+        public DateTime FECHA_PUBLICACION { get; set; }
+        public string EDITORIAL { get; set; }
     }
 }

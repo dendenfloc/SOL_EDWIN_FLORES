@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace SOL_EDWIN_FLORES.Models
 {
-    public class usuarios
+    public class USUARIOS
     {
-        public int id { get; set; }
-        public string dni { get; set; }
-        public string nombres { get; set; }
-        public string apellidos { get; set; }
-        public string email { get; set; }
-        public string telefono { get; set; }
-        public string tipo_usuario { get; set; }
-        public int estado { get; set; }
+        [Key]
+        public int ID { get; set; }
+        public string DNI { get; set; }
+        public string NOMBRE { get; set; }
+        public string APELLIDO { get; set; }
+        public string EMAIL { get; set; }
+        public string TELEFONO { get; set; }
+        public string TIPO_USUARIO { get; set; }
+        public int ESTADO { get; set; }
     }
 }

@@ -134,15 +134,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Clases\reportes.cs" />
+    <Compile Include="Clases\Combo.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PrestamoController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\libros.cs" />
-    <Compile Include="Models\prestamos.cs" />
-    <Compile Include="Models\usuarios.cs" />
+    <Compile Include="Models\LIBROS.cs" />
+    <Compile Include="Models\PRESTAMOS.cs" />
+    <Compile Include="Models\USUARIOS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +199,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Prestamo\Index.cshtml" />
     <Content Include="Views\Prestamo\CreatePrestamo.cshtml" />
-    <Content Include="Views\Prestamo\CreateDevolucion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

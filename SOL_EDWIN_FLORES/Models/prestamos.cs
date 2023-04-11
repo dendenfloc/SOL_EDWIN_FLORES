@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace SOL_EDWIN_FLORES.Models
 {
-    public class prestamos
+    public class PRESTAMOS
     {
-        public int id { get; set; }
-        public int id_libro { get; set; }
-        public int id_usuario { get; set; }
-        public DateTime fecha_prestamo { get; set; }
-        public DateTime fecha_devolucion { get; set; }
-        public string tipo_prestamo { get; set; }
-        public string tipo_lectura { get; set; }
-
+        [Key]
+        public int ID { get; set; }
+        public int ID_LIBRO { get; set; }
+        public int ID_USUARIO { get; set; }
+        public DateTime FECHA_PRESTAMO { get; set; }
+        public DateTime? FECHA_DEVOLUCION { get; set; }
+        public string TIPO_LECTURA { get; set; }
     }
 }

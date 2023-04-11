@@ -21,109 +21,89 @@ namespace SOL_EDWIN_FLORES.Controllers
 
         public ActionResult Index()
         {
-            var lista = new List<reportes>();
-            using (var context = new ApplicationDbContext())
-            {
-                lista = (from prestamos in context.prestamos
-                         join libros in context.libros on prestamos.id_libro equals libros.id
-                         join usuarios in context.usuarios on prestamos.id_usuario equals usuarios.id
+            var lista = (from prestamos in _context.PRESTAMOS
+                         join libros in _context.LIBROS on prestamos.ID_LIBRO equals libros.ID
+                         join usuarios in _context.USUARIOS on prestamos.ID_USUARIO equals usuarios.ID
                          select new reportes
                          {
-                             id_prestamo = prestamos.id,
-                             id_libro = libros.id,
-                             nombre_libro = libros.nombre,
-                             fecha_prestamo = prestamos.fecha_prestamo,
-                             dni_usuario = usuarios.dni,
-                             nombre_usuario = usuarios.nombres,
-                             apellido_usuario = usuarios.apellidos,
-                             tipo_usuario = usuarios.tipo_usuario,
-                             tipo_lectura = prestamos.tipo_lectura,
-                             fecha_devolucion = prestamos.fecha_devolucion
+                             id_prestamo = prestamos.ID,
+                             id_libro = libros.ID,
+                             nombre_libro = libros.NOMBRE,
+                             fecha_prestamo = prestamos.FECHA_PRESTAMO,
+                             dni_usuario = usuarios.DNI,
+                             nombre_usuario = usuarios.NOMBRE,
+                             apellido_usuario = usuarios.APELLIDO,
+                             tipo_usuario = usuarios.TIPO_USUARIO,
+                             tipo_lectura = prestamos.TIPO_LECTURA,
+                             fecha_devolucion = prestamos.FECHA_DEVOLUCION
                          }).ToList();
-            }
             return View(lista);
         }
 
         public ActionResult CreatePrestamo()
         {
-
             try
             {
-
-                var libros = _context.libros.ToList();
-                var usuarios = _context.usuarios.ToList();
-
-                ViewData["libros"] = new SelectList(libros.OrderBy(t => t.nombre), "id", "nombre");
-                ViewData["usuarios"] = new SelectList(usuarios.OrderBy(t => t.nombres), "id", "nombres");
-
+                var libros = _context.LIBROS.ToList();
+                var usuarios = _context.USUARIOS.ToList();
+                var tipoPrestamo = new List<Combo>();
+                tipoPrestamo.Add(new Combo { codigo = "Biblioteca", descripcion = "Biblioteca" });
+                tipoPrestamo.Add(new Combo { codigo = "Retiro a casa", descripcion = "Retiro a casa" });
+                ViewBag.tipoPrestamo = tipoPrestamo;
+                ViewBag.libros = _context.LIBROS.ToList();
+                ViewBag.usuarios = _context.USUARIOS.ToList();
             }
             catch (Exception ex)
             {
-
                 throw;
             }
             return PartialView();
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreatePrestamo(prestamos model)
+        public async Task<ActionResult> CreatePrestamo(PRESTAMOS model)
         {
             //Validacion Cantidad Libros Por dia Máximo 3
             var fechaHoy = DateTime.Today;
-            var usuario = model.id_usuario;
-            var librosPrestadosHoy = _context.prestamos.Where(t => t.id_usuario.Equals(usuario) && t.fecha_prestamo.Equals(fechaHoy)).Count();
+            var usuario = model.ID_USUARIO;
+            var librosPrestadosHoy = _context.PRESTAMOS.Where(t => t.ID_USUARIO.Equals(usuario) && t.FECHA_PRESTAMO.Equals(fechaHoy)).Count();
 
             //Validacion Usuario Sancionado
-            var sancion = _context.usuarios.Where(t => t.id.Equals(usuario)).Select(t=>t.estado).FirstOrDefault();
+            var sancion = _context.USUARIOS.Where(t => t.ID.Equals(usuario)).Select(t => t.ESTADO).FirstOrDefault();
 
             if (sancion == 0)
             {
                 return Json(new { error = true, message = "El usuario ha sido sancionado" });
             }
-            else if (librosPrestadosHoy >= 3) {
-                
+            else if (librosPrestadosHoy >= 3)
+            {
+
                 return Json(new { error = true, message = "La cantidad máxima de libros prestados por día es 3" });
             }
             else
             {
-                //Insert
-                model.fecha_prestamo = DateTime.Now.Date;
-                _context.prestamos.Add(model);
-                await _context.SaveChangesAsync();
-                return Json(new { error = false });
+                try
+                {
+                    //Insert
+                    model.FECHA_PRESTAMO = DateTime.Now;
+                    _context.PRESTAMOS.Add(model);
+                    await _context.SaveChangesAsync();
+                    return Json(new { error = false });
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
             }
         }
 
-
-        [HttpPost]
         public async Task<ActionResult> Devolver(int id)
         {
-            var prestamo = _context.prestamos.Where(t => t.id.Equals(id)).FirstOrDefault();
-            prestamo.fecha_devolucion = DateTime.Today.Date;
-            //_context.prestamos.AddOrUpdate(prestamo);
+            var prestamo = _context.PRESTAMOS.Where(t => t.ID.Equals(id)).FirstOrDefault();
+            prestamo.FECHA_DEVOLUCION = DateTime.Now;
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
-        }
-
-        public ActionResult CreateDevolucion()
-        {
-
-            try
-            {
-
-                var libros = _context.libros.ToList();
-                var usuarios = _context.usuarios.ToList();
-
-                ViewData["libros"] = new SelectList(libros.OrderBy(t => t.nombre), "id", "nombre");
-                ViewData["usuarios"] = new SelectList(usuarios.OrderBy(t => t.nombres), "id", "nombres");
-
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-            return PartialView();
         }
     }
 }

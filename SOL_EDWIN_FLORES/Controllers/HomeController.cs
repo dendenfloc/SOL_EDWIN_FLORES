@@ -12,11 +12,6 @@ namespace SOL_EDWIN_FLORES.Controllers
     {
         public ActionResult Index()
         {
-            var listaUsuarios = new List<usuarios>();
-            using (var context = new ApplicationDbContext())
-            {
-                listaUsuarios = context.usuarios.ToList();
-            }
             return RedirectToAction("Index", "Prestamo");
         }
 

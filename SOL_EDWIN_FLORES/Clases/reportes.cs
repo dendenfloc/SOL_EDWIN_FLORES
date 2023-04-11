@@ -29,7 +29,7 @@ namespace SOL_EDWIN_FLORES.Clases
         [Display(Name = "Tipo Lectura")]
         public string tipo_lectura { get; set; }
         [Display(Name = "Fecha Devolución")]
-        public DateTime fecha_devolucion { get; set; }
+        public DateTime? fecha_devolucion { get; set; }
 
         public string tipo_usuario_view => (tipo_usuario == "DOC") ? "Docente" : "Alumno";
 

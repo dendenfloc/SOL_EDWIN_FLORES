@@ -4,13 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Reporte de Prestamos</h2>
 
+<br />
 <div class="row">
     <div class="col-md-12">
         <a onclick="GeneraPrestamo()" class="btn btn-outline-info">Generar Préstamo</a>
     </div>
 </div>
+<hr />
 
 <div class="table-responsive">
 
@@ -127,30 +129,15 @@
         }
 
 
-        function ValidarInformacion() {
-            $(".errorForm").remove();
-            var valid = true;
-            $("#formCreate :input[required]").each(function () {
-                if ($(this).val() == 0 || $(this).val() == "") {
-                    valid = false;
-                    $(this).focus();
-                    $(this).after('<span class="errorForm text-danger">Completa este campo</span>');
-                    return false;
-                }
-            });
-            if (valid) {
-                RegistrarInformacion();
-            }
-        }
 
         function RegistrarInformacion() {
             var modelo = new Object();
-            $("#formCreate input, select, textarea").each(function () {
+            $("#formControl input, select, textarea").each(function () {
                 modelo[this.name] = this.value;
             });
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("Create", "Home")',
+                url: '@Url.Action("CreatePrestamo", "Prestamo")',
                 data: modelo,
                 success: function (returnedData) {
                     if (returnedData.error) {
@@ -160,7 +147,7 @@
                     }
                 },
                 error: function (ex) {
-                    alert('Prestamo/Create' + ex);
+                    alert('Prestamo/CreatePrestamo' + ex);
                 }
              });
         }
