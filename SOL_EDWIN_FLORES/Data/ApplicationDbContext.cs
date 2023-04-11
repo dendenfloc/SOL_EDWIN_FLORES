@@ -16,9 +16,9 @@ namespace SOL_EDWIN_FLORES.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("SYSTEM");
-            modelBuilder.HasDefaultSchema("SYSTEM")
-                .Properties()
-                .Configure(c => c.HasColumnName(c.ClrPropertyInfo.Name));
+            //modelBuilder.HasDefaultSchema("SYSTEM")
+            //    .Properties()
+            //    .Configure(c => c.HasColumnName(c.ClrPropertyInfo.Name.ToUpperInvariant));
         }
         public DbSet<usuarios> usuarios { get; set; }
         public DbSet<libros> libros { get; set; }

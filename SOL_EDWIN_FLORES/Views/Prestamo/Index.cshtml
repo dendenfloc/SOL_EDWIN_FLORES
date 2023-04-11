@@ -83,9 +83,11 @@
                     @Html.DisplayFor(modelItem => item.fecha_devolucion)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @if (item.fecha_devolucion == null)
+                    {
+                        @Html.ActionLink("Devolver", "Devolver", new { id = item.id_prestamo })
+                    }
+
                 </td>
             </tr>
         }
@@ -140,6 +142,7 @@
                 RegistrarInformacion();
             }
         }
+
         function RegistrarInformacion() {
             var modelo = new Object();
             $("#formCreate input, select, textarea").each(function () {

@@ -3,6 +3,7 @@ using SOL_EDWIN_FLORES.Data;
 using SOL_EDWIN_FLORES.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -72,8 +73,15 @@ namespace SOL_EDWIN_FLORES.Controllers
             var usuario = model.id_usuario;
             var librosPrestadosHoy = _context.prestamos.Where(t => t.id_usuario.Equals(usuario) && t.fecha_prestamo.Equals(fechaHoy)).Count();
 
-            if (librosPrestadosHoy >= 3)
+            //Validacion Usuario Sancionado
+            var sancion = _context.usuarios.Where(t => t.id.Equals(usuario)).Select(t=>t.estado).FirstOrDefault();
+
+            if (sancion == 0)
             {
+                return Json(new { error = true, message = "El usuario ha sido sancionado" });
+            }
+            else if (librosPrestadosHoy >= 3) {
+                
                 return Json(new { error = true, message = "La cantidad máxima de libros prestados por día es 3" });
             }
             else
@@ -84,6 +92,38 @@ namespace SOL_EDWIN_FLORES.Controllers
                 await _context.SaveChangesAsync();
                 return Json(new { error = false });
             }
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> Devolver(int id)
+        {
+            var prestamo = _context.prestamos.Where(t => t.id.Equals(id)).FirstOrDefault();
+            prestamo.fecha_devolucion = DateTime.Today.Date;
+            //_context.prestamos.AddOrUpdate(prestamo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult CreateDevolucion()
+        {
+
+            try
+            {
+
+                var libros = _context.libros.ToList();
+                var usuarios = _context.usuarios.ToList();
+
+                ViewData["libros"] = new SelectList(libros.OrderBy(t => t.nombre), "id", "nombre");
+                ViewData["usuarios"] = new SelectList(usuarios.OrderBy(t => t.nombres), "id", "nombres");
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return PartialView();
         }
     }
 }
